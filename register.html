@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Register</h2>
+    <form method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="/login" style="color: #ffeb3b;">Login</a></p>
+    </form>
+  </div>
+</body>
+</html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">

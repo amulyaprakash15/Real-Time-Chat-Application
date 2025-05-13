@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">
+      <h2>Welcome {{ username }} 👋 <a href="/logout" style="color: #ffeb3b;">Logout</a></h2>
+    </div>
+    <div id="messages">
+      {% for msg in messages %}
+      <p class="message-pop"><b>{{ msg.sender }}:</b> {{ msg.content }}</p>
+      {% endfor %}
+    </div>
+    <form id="msgForm">
+      <input id="message" placeholder="Type a message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- Pop-up sound -->
+  <audio id="popSound" src="https://www.myinstants.com/media/sounds/pop-up-kort.mp3" preload="auto"></audio>
+
+  <script>
+    const socket = io();
+    const room = "global";
+    const username = "{{ username }}";
+
+    socket.emit('join', { username, room });
+
+    document.getElementById('msgForm').onsubmit = (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('message').value.trim();
+      if (msg !== "") {
+        socket.emit('message', { username, room, message: msg });
+        document.getElementById('message').value = '';
+      }
+    };
+
+    function showMessage(content, isStatus = false) {
+      const p = document.createElement('p');
+      p.innerHTML = content;
+      p.classList.add('message-pop');
+      if (isStatus) p.style.color = "lightgray";
+      document.getElementById('messages').appendChild(p);
+      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+      document.getElementById('popSound').play();
+    }
+
+    socket.on('message', data => {
+      showMessage(`<b>${data.username}:</b> ${data.message}`);
+    });
+
+    socket.on('status', data => {
+      showMessage(data.msg, true);
+    });
+  </script>
+</body>
+</html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">

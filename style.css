@@ -1,0 +1,91 @@
+/* Fullscreen Gradient Background + Blur Container + Animations */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #84fab0, #8fd3f4);
+    background-size: 200% 200%;
+    animation: gradientFlow 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .container, .chat-container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    padding: 2rem;
+    width: 350px;
+    color: white;
+    animation: slideUp 0.6s ease-out;
+    z-index: 10;
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  input, button {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  
+  input {
+    background: rgba(255, 255, 255, 0.7);
+    color: #333;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #388e3c;
+  }
+  
+  #messages {
+    background: rgba(255,255,255,0.3);
+    height: 250px;
+    overflow-y: auto;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .message-pop {
+    animation: popIn 0.4s ease forwards;
+  }
+  
+  @keyframes popIn {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  p {
+    margin: 0.3rem 0;
+    color: white;
+    font-weight: 500;
+  }
+  
+  a {
+    color: #ffd54f;
+    text-decoration: none;
+  }
+  
